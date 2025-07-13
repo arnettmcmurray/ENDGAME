@@ -4,6 +4,7 @@ from combat import fight
 from inventory import Item
 from abilities import use_special
 from wu_battle import wu_battle_intro
+from end_scene import end_scene
 
 def show_intro():
     print(r"""
@@ -43,34 +44,27 @@ def start_game():
     print(f"\nYou chose: {player.role}")
     print(player.info())
 
-    # Load up the gear
     burger = Item("Burger", "heal", 20)
     sauce = Item("Secret Sauce", "boost", 3)
     bomb = Item("Grease Bomb", "damage", 15)
     player.inventory = [burger, sauce, bomb]
 
-    # First fight
     print("\nRound 1: Someone greasy stumbles in...")
     enemy1 = Enemy("Waffle Fiend")
     wu_battle_intro(player, enemy1)
     fight(player, enemy1)
 
-    # Special move worked?
     if player.is_alive():
         print("\nSpecial move time.")
         use_special(player, enemy1)
 
-    # Boss fight
     if player.is_alive():
         print("\nFinal Round: OTHMANE appears.")
         boss = Enemy("OTHMANE", type="boss")
         wu_battle_intro(player, boss)
         fight(player, boss)
 
-    if player.is_alive():
-        print("\nYou survived Burgertown.")
-    else:
-        print("\nBurgertown claimed another soul.")
+    end_scene(player)
 
 if __name__ == "__main__":
     start_game()
