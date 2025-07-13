@@ -1,6 +1,7 @@
 from combat import fight
 from enemy import Enemy
 from abilities import use_special
+from wu_battle import wu_battle_intro
 
 def fight_boss(player):
     print("\nOTHMANE steps out from the smoke...")
@@ -8,8 +9,9 @@ def fight_boss(player):
 
     boss = Enemy("OTHMANE", type="boss")
 
-    use_special(player, boss)
+    wu_battle_intro(player, boss)
 
+    use_special(player, boss)
     fight(player, boss)
 
     if player.health > 0:
