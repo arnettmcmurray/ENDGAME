@@ -3,8 +3,25 @@ from enemy import Enemy
 from combat import fight
 from inventory import Item
 from abilities import use_special
+from wu_battle import wu_battle_intro
+
+def show_intro():
+    print(r"""
+     ___  ___  __    __  _______  _________  ________     
+    |\  \|\  \|\ \  |\  \|\  ___ \|\___   ___\\   __  \    
+    \ \  \\\  \ \ \  \ \  \ \   __/\|___ \  \_\ \  \|\  \   
+     \ \   __  \ \ \  \ \  \ \  \_|/__  \ \  \ \ \   _  _\  
+      \ \  \ \  \ \ \  \ \  \ \  \_|\ \  \ \  \ \ \  \\  \| 
+       \ \__\ \__\ \ \__\ \__\ \_______\  \ \__\ \ \__\\ _\ 
+        \|__|\|__|  \|__|\|__|\|_______|   \|__|  \|__|\|__|
+
+        Burgertown RPG: Where the grease is eternal
+    """)
+    input("\nPress Enter to serve justice...\n")
 
 def start_game():
+    show_intro()
+
     print("Welcome to Burgertown.")
     name = input("Name your fighter: ")
 
@@ -35,9 +52,10 @@ def start_game():
     # First fight
     print("\nRound 1: Someone greasy stumbles in...")
     enemy1 = Enemy("Waffle Fiend")
+    wu_battle_intro(player, enemy1)
     fight(player, enemy1)
 
-    # Special move test
+    # Special move worked?
     if player.is_alive():
         print("\nSpecial move time.")
         use_special(player, enemy1)
@@ -46,9 +64,9 @@ def start_game():
     if player.is_alive():
         print("\nFinal Round: OTHMANE appears.")
         boss = Enemy("OTHMANE", type="boss")
+        wu_battle_intro(player, boss)
         fight(player, boss)
 
-    # End
     if player.is_alive():
         print("\nYou survived Burgertown.")
     else:
